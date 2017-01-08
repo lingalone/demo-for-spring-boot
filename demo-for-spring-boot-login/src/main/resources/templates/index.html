@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <base href="http://demos.telerik.com/kendo-ui/grid/editing-popup"/>
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.1118/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.1118/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.1118/styles/kendo.material.mobile.min.css" />
+
+    <script src="//kendo.cdn.telerik.com/2016.3.1118/js/jquery.min.js"></script>
+    <script src="//kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Project name</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="example">
+        <div id="grid"></div>
+        <script>
+
+            $(document).ready(function () {
+                var crudServiceBaseUrl = "http://localhost:8080/qa",
+                    dataSource = new kendo.data.DataSource({
+                        transport: {
+                            read:  {
+                                url: crudServiceBaseUrl + "/list",
+                                dataType: "jsonp"
+                            },
+                            update: {
+                                url: crudServiceBaseUrl + "/update",
+                                dataType: "jsonp",
+                                type: "POST"
+                            },
+                            destroy: {
+                                url: crudServiceBaseUrl + "/delete",
+                                dataType: "jsonp",
+                                type: "POST"
+                            },
+                           parameterMap: function(options, operation) {
+
+                                 console.log(kendo.stringify(options.models));
+
+                                if (operation !== "read" && options.models) {
+                                  console.log(kendo.stringify(options.models));
+                                    return {models: kendo.stringify(options.models)};
+                                }
+                            }
+                        },
+                        batch: true,
+                        pageSize: 20,
+                        schema: {
+                            model: {
+                              id:"subject",
+                                fields: {
+                                    subject:     { validation: { required: true } },
+                                    answer:      { validation: { required: true }},
+                                    type:        { validation: { required: true }},
+                                    source:      { validation: { required: true }},
+                                    url:         { validation: { required: true }},
+                                    time:        { validation: { required: true }},
+                                    score:       { validation: { min: 0, required: true }
+                                  }
+                                }
+                            }
+                        }
+                    });
+
+                $("#grid").kendoGrid({
+                    dataSource: dataSource,
+                    pageable: true,
+                    height: 550,
+                    toolbar: ["search"],
+                    columns: [
+                        // { field:"subject", title: "问题",
+                        //   attributes: {
+                        //         "class": "table-cell",
+                        //         style: " white-space:nowrap ; overflow:hidden"
+                        //   },
+                        //   width: "240px"
+                        // },
+                        { field:"answer", title: "答案",
+                          attributes: {
+                                "class": "table-cell",
+                                style: " white-space:nowrap ; overflow:hidden"
+                          },
+                          width: "240px"
+                        },
+                        { field:"type", title: "问题类型",  width: "120px"},
+                        { field:"source", title: "答案来源",  width: "120px" },
+                        { field:"url", title: "采集链接", width: "160px"},
+                        { field:"time", title: "采集时间", width: "120px"},
+                        { field:"score", title: "权威值", width: "80px"},
+
+                        { command: ["edit", "destroy"], title: "&nbsp;", width: "250px" }
+                      ],
+                    editable: "popup"
+                });
+
+
+            });
+        </script>
+    </div>
+
+</body>
+</html>
