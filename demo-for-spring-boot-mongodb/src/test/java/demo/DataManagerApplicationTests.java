@@ -22,7 +22,7 @@ public class DataManagerApplicationTests {
 
 		questionAnswerRepository.deleteAll();
 
-		for(Integer i = 1; i<=100;i++){
+		for(Integer i = 1; i<=100000;i++){
 			QuestionAnswer tempItem = new QuestionAnswer();
 			tempItem.setAnswer("ansddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddwer"+i);
 			tempItem.setScore(i);

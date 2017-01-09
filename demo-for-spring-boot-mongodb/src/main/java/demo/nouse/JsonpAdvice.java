@@ -1,4 +1,4 @@
-package demo;
+package demo.nouse;
 
 import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
 

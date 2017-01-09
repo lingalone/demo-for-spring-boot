@@ -1,4 +1,4 @@
-package demo;
+package demo.controller;
 
 import demo.entry.QuestionAnswer;
 import demo.repository.QuestionAnswerRepository;
@@ -25,6 +25,14 @@ public class QAController
     @ResponseBody
     public List<QuestionAnswer> getList() {
         return questionAnswerRepository.findAll();
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST )
+    @ResponseBody
+    public boolean createQA(@RequestBody QuestionAnswer qa){
+        //questionAnswerRepository.insert(qa);
+        questionAnswerRepository.save(qa);
+        return true;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST )

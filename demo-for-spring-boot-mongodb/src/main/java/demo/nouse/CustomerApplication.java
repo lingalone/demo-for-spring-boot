@@ -1,4 +1,4 @@
-package demo;
+package demo.nouse;
 
 import demo.entry.Customer;
 import demo.repository.CustomerRepository;

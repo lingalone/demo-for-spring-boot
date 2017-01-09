@@ -23,6 +23,9 @@ $(document).ready(function () {
                     type: "POST",
                     contentType: "application/json"
                 },
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
                 //返回array
                 // http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#data-array
 //                           parameterMap: function(options, operation) {
@@ -60,6 +63,19 @@ $(document).ready(function () {
 
     $("#grid").kendoGrid({
         dataSource: dataSource,
+        // groupable: true,
+        sortable: true,
+        // reorderable: true,
+        // resizable: true,
+        // columnMenu: true,
+        // filterable: {
+        //     mode: "row"
+        // },
+        //sortable: true,
+        filterable: true,
+        //columnMenu: true,
+
+
         pageable: true,
         height: 600,
         toolbar: ["search"],
@@ -153,6 +169,9 @@ $(document).ready(function () {
                     type: "POST",
                     contentType: "application/json"
                 },
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true,
                 parameterMap: function(data, type) {
                     if (type !== "read" && data) {
                         return kendo.stringify(data);
@@ -185,6 +204,14 @@ $(document).ready(function () {
     $("#search").kendoButton({
         click: onClick
     });
+
+    $("#example").kendoSplitter({
+        panes: [
+            { size: 100 },
+            { }
+        ]
+    });
+
 
 
 
