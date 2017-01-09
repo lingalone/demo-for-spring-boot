@@ -120,66 +120,14 @@ $(document).ready(function () {
         }
     });
 
-    // var viewModel = kendo.observable({
-    //     inputValue: "Input value"
-    // });
-    //
-    // kendo.bind($("#view"), viewModel);
-
-
-    var viewModel = kendo.observable({
-        inputValue: ""
+    var searchStr = kendo.observable({
+        searchValue: ""
     });
+    kendo.bind($("#searchForm"), searchStr);
 
-    kendo.bind($("#view"), viewModel);
     function onClick(){
+        var searchStrapp.js
 
-        var searchDataSource = new kendo.data.DataSource({
-            transport: {
-                read:  {
-                    url: contextRoot + "qa/find/"+ viewModel.inputValue,
-                    dataType: "json",
-                    type: "GET"
-                },
-                update: {
-                    url: crudServiceBaseUrl + "/qa/update",
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json"
-                },
-                destroy: {
-                    url: crudServiceBaseUrl + "/qa/delete",
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json"
-                },
-                parameterMap: function(data, type) {
-                    if (type !== "read" && data) {
-                        return kendo.stringify(data);
-                    }
-                }
-            },
-            //不批量
-            batch: false,
-            pageSize: 20,
-            schema: {
-                model: {
-                    id:"id",
-                    fields: {
-                        id:          { editable: false, nullable: false },
-                        subject:     { validation: { required: true } },
-                        answer:      { validation: { required: true }},
-                        type:        { validation: { required: true }},
-                        source:      { validation: { required: true }},
-                        url:         { validation: { required: true }},
-                        time:        { validation: { required: true }},
-                        score:       { validation: { min: 0, required: true }
-                        }
-                    }
-                }
-            }
-        });
-        $("#grid").data("kendoGrid").setDataSource(searchDataSource).read();
     }
 
     $("#search").kendoButton({

@@ -3,7 +3,6 @@ package demo;
 
 import demo.entry.QuestionAnswer;
 import demo.repository.QuestionAnswerRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,9 @@ public class DataManagerApplicationTests {
 	@Test
 	public void repositoryTest() {
 
-		//questionAnswerRepository.deleteAll();
+		questionAnswerRepository.deleteAll();
 
-		for(Integer i = 1; i<=10;i++){
+		for(Integer i = 1; i<=100;i++){
 			QuestionAnswer tempItem = new QuestionAnswer();
 			tempItem.setAnswer("ansddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddwer"+i);
 			tempItem.setScore(i);
@@ -36,15 +35,15 @@ public class DataManagerApplicationTests {
 
 		}
 
-		Assert.assertEquals(10, questionAnswerRepository.findAll().size());
-		// 删除一个User，再验证User总数
-		QuestionAnswer qa = questionAnswerRepository.findByType("type"+1);
-		questionAnswerRepository.delete(qa);
-		Assert.assertEquals(9, questionAnswerRepository.findAll().size());
-		// 删除一个User，再验证User总数
-		qa = questionAnswerRepository.findBySubject("subject"+2);
-		questionAnswerRepository.delete(qa);
-		Assert.assertEquals(8, questionAnswerRepository.findAll().size());
+//		Assert.assertEquals(10, questionAnswerRepository.findAll().size());
+//		// 删除一个User，再验证User总数
+//		QuestionAnswer qa = questionAnswerRepository.findByType("type"+1);
+//		questionAnswerRepository.delete(qa);
+//		Assert.assertEquals(9, questionAnswerRepository.findAll().size());
+//		// 删除一个User，再验证User总数
+//		qa = questionAnswerRepository.findBySubject("subject"+2);
+//		questionAnswerRepository.delete(qa);
+//		Assert.assertEquals(8, questionAnswerRepository.findAll().size());
 	}
 
 }

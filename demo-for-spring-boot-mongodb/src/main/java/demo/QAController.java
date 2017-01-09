@@ -27,16 +27,27 @@ public class QAController
         return questionAnswerRepository.findAll();
     }
 
-    @RequestMapping(value = "/update")
-    public void updateQA(@ModelAttribute QuestionAnswer qa){
-        questionAnswerRepository.insert(qa);
+    @RequestMapping(value = "/update", method = RequestMethod.POST )
+    @ResponseBody
+    public boolean updateQA(@RequestBody QuestionAnswer qa){
+        //questionAnswerRepository.insert(qa);
+        questionAnswerRepository.save(qa);
+        return true;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST )
     @ResponseBody
     //public void deleteQA(@RequestBody ModelMap qa){
-    public void deleteQA(@RequestBody QuestionAnswer qa){
+    public boolean deleteQA(@RequestBody QuestionAnswer qa){
         System.out.println(qa.getId());
         questionAnswerRepository.delete(qa.getId());
+        return true;
+    }
+
+    @RequestMapping(value = "/find/{search}", method = RequestMethod.GET )
+    @ResponseBody
+    public QuestionAnswer findQA(@PathVariable String search){
+
+        return questionAnswerRepository.findByType("type6");
     }
 }
